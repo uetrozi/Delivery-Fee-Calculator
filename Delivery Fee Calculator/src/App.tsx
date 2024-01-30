@@ -26,17 +26,18 @@ function App() {
         <form>
           <FormControl>
             <HStack>
-              <FormLabel> Cart Value </FormLabel>
               <Spacer />
               <InputGroup>
+                <FormLabel htmlFor="cartValue"> Cart Value </FormLabel>
                 <NumberInput
                   allowMouseWheel
                   min={1}
                   maxW={24}
+                  defaultValue={20}
                   id="cartValue"
                   name="cartValue"
                   data-test-id="cartValue"
-                  defaultValue={20}
+                  aria-label="Cart Value"
                 >
                   <NumberInputField />
                 </NumberInput>
@@ -46,7 +47,9 @@ function App() {
           </FormControl>
           <FormControl>
             <HStack>
-              <FormLabel> Delivery distance </FormLabel>
+              <FormLabel htmlFor="deliveryDistance">
+                Delivery distance
+              </FormLabel>
               <Spacer />
               <InputGroup>
                 <NumberInput
@@ -54,10 +57,11 @@ function App() {
                   size="md"
                   maxW={24}
                   min={1}
+                  defaultValue={2235}
                   id="deliveryDistance"
                   name="deliveryDistance"
                   data-test-id="deliveryDistance"
-                  defaultValue={2235}
+                  aria-label="Delivery Distance"
                 >
                   <NumberInputField />
                 </NumberInput>
@@ -67,17 +71,18 @@ function App() {
           </FormControl>
           <FormControl>
             <HStack>
-              <FormLabel> Number of Items </FormLabel>
+              <FormLabel htmlFor="numberOfItems"> Number of Items </FormLabel>
               <Spacer />
               <NumberInput
                 allowMouseWheel
                 size="md"
                 maxW={24}
                 min={1}
+                defaultValue={4}
                 id="numberOfItems"
                 name="numberOfItems"
                 data-test-id="numberOfItems"
-                defaultValue={4}
+                aria-label="Number of Items"
               >
                 <NumberInputField />
               </NumberInput>
@@ -85,7 +90,7 @@ function App() {
           </FormControl>
           <FormControl>
             <HStack>
-              <FormLabel>Order Time </FormLabel>
+              <FormLabel htmlFor="orderTime">Order Time </FormLabel>
               <Spacer />
               <Input
                 type="datetime-local"
@@ -93,11 +98,15 @@ function App() {
                 id="orderTime"
                 name="orderTime"
                 data-test-id="orderTime"
+                aria-label="Order Time"
               ></Input>
             </HStack>
           </FormControl>
 
-          <Button type="submit"> Calculate Delivery Price</Button>
+          <Button aria-label="Calculate Delivery Price" type="submit">
+            {" "}
+            Calculate Delivery Price
+          </Button>
         </form>
 
         <Text>Delivery Price: {fee}</Text>
