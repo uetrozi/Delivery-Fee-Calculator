@@ -1,8 +1,12 @@
 {
   "name": "delivery-fee-calculator",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": {
+    "name": "Charlotte Keuer",
+    "email": "charlotte_keuer@posteo.de"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
