@@ -39,7 +39,7 @@ function App() {
     <Container h={"100vh"}>
       <AbsoluteCenter w={350}>
         <Center>
-          <Heading pb={20}>Delivery Fee Calculator</Heading>
+          <Heading size={"lg"} pb={20}>Delivery Fee Calculator</Heading>
         </Center>
         <form onSubmit={handleSubmit}>
           <VStack>

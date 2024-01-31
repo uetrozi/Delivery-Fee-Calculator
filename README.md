@@ -1,4 +1,4 @@
-# Wolt Summer 2024 Engineering Internships Assignment
+# Wolt Summer 2024 Engineering Internships - Frontend Assignment 
 
 **Delivery Fee Calculator**
 

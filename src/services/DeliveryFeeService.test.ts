@@ -1,7 +1,7 @@
 import { DeliveryFeeForm } from "../models/DeliveryFeeForm";
 import calculateFee from "./DeliveryFeeService";
 
-test("if cV is less than 10 the orderSurcharge will be the difference between the cV and 10", () => {
+test("if cartValue is less than 10 the orderSurcharge will be the difference between the cartValue and 10", () => {
   const given: DeliveryFeeForm = {
     cartValue: 1,
     deliveryDistance: 1,
@@ -12,7 +12,7 @@ test("if cV is less than 10 the orderSurcharge will be the difference between th
   expect(actual).toEqual(11);
 });
 
-test("if cV is less than 10 the orderSurcharge will be the difference between the cV and 10", () => {
+test("if cartValue is less than 10 the orderSurcharge will be the difference between the cartValue and 10", () => {
   const given: DeliveryFeeForm = {
     cartValue: 8.9,
     deliveryDistance: 1,
@@ -23,7 +23,7 @@ test("if cV is less than 10 the orderSurcharge will be the difference between th
   expect(actual).toEqual(3.1);
 });
 
-test("if dD is less er equal 1000 the delivery fee is 2", () => {
+test("if deliveryDistance is less er equal 1000m the delivery fee is 2", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 1,
@@ -34,7 +34,7 @@ test("if dD is less er equal 1000 the delivery fee is 2", () => {
   expect(actual).toEqual(2);
 });
 
-test("if dD is 1499 the delivery fee is 3", () => {
+test("if deliveryDistance is 1499 the delivery fee is 3", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 1499,
@@ -45,7 +45,7 @@ test("if dD is 1499 the delivery fee is 3", () => {
   expect(actual).toEqual(3);
 });
 
-test("if dD is 1500 the delivery fee is 3", () => {
+test("if deliveryDistance is 1500 the delivery fee is 3", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 1500,
@@ -56,7 +56,7 @@ test("if dD is 1500 the delivery fee is 3", () => {
   expect(actual).toEqual(3);
 });
 
-test("if dD is 1501 the delivery fee is 4", () => {
+test("if deliveryDistance is 1501 the delivery fee is 4", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 1501,
@@ -67,7 +67,7 @@ test("if dD is 1501 the delivery fee is 4", () => {
   expect(actual).toEqual(4);
 });
 
-test("if dD is 2235 the delivery fee is 5", () => {
+test("if deliveryDistance is 2235 the delivery fee is 5", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 2235,
@@ -78,7 +78,7 @@ test("if dD is 2235 the delivery fee is 5", () => {
   expect(actual).toEqual(5);
 });
 
-test("if nI is 4 or less there will be no itemSurcharge ", () => {
+test("if itemCount is 4 or less there will be no itemSurcharge ", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 1,
@@ -89,7 +89,7 @@ test("if nI is 4 or less there will be no itemSurcharge ", () => {
   expect(actual).toEqual(2);
 });
 
-test("if nI is 5 or more 0.50 itemSurcharge will be added per item above an including the fifth ", () => {
+test("if itemCount is 5 or more 0.50 itemSurcharge will be added per item above an including the fifth ", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 1,
@@ -100,7 +100,7 @@ test("if nI is 5 or more 0.50 itemSurcharge will be added per item above an incl
   expect(actual).toEqual(2.5);
 });
 
-test("if nI is 5 or more 0.50 itemSurcharge will be added per item above an including the fifth ", () => {
+test("if itemCount is 5 or more 0.50 itemSurcharge will be added per item above an including the fifth ", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 1,
@@ -111,7 +111,7 @@ test("if nI is 5 or more 0.50 itemSurcharge will be added per item above an incl
   expect(actual).toEqual(5);
 });
 
-test("if nI is more than 12 in addition to the itemSurcharge an bulkFee of 1.20 is added ", () => {
+test("if itemCount is more than 12 in addition to the itemSurcharge an bulkFee of 1.20 is added ", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 1,
@@ -122,7 +122,7 @@ test("if nI is more than 12 in addition to the itemSurcharge an bulkFee of 1.20 
   expect(actual).toEqual(7.7);
 });
 
-test("if nI is more than 12 in addition to the itemSurcharge an bulkFee of 1.20 is added ", () => {
+test("if itemCount is more than 12 in addition to the itemSurcharge an bulkFee of 1.20 is added ", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 1,
@@ -133,7 +133,7 @@ test("if nI is more than 12 in addition to the itemSurcharge an bulkFee of 1.20 
   expect(actual).toEqual(8.2);
 });
 
-test("the deliver fee can never be more than 15", () => {
+test("the delivery fee can never be more than 15", () => {
   const given: DeliveryFeeForm = {
     cartValue: 10,
     deliveryDistance: 9999,
@@ -144,7 +144,7 @@ test("the deliver fee can never be more than 15", () => {
   expect(actual).toEqual(15);
 });
 
-test("The delivery is free (0€) when the cart value is equal or more than 200", () => {
+test("The delivery fee is 0 when the cartValue is equal or more than 200", () => {
   const given: DeliveryFeeForm = {
     cartValue: 200,
     deliveryDistance: 1,
@@ -155,7 +155,7 @@ test("The delivery is free (0€) when the cart value is equal or more than 200"
   expect(actual).toEqual(0);
 });
 
-test("During the Friday rush, 3 - 7 PM, the delivery fee will be multiplied by 1.2x", () => {
+test("During the Friday rush, 3 - 7 PM, the delivery fee will be multiplied by 1.2", () => {
   const given: DeliveryFeeForm = {
     cartValue: 8.9,
     deliveryDistance: 2235,
