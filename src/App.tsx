@@ -11,10 +11,8 @@ import {
   Input,
   InputGroup,
   InputRightAddon,
-  Flex,
   Center,
   AbsoluteCenter,
-  Box,
   VStack,
 } from "@chakra-ui/react";
 
@@ -24,9 +22,9 @@ import { useState } from "react";
 function App() {
   const [fee, setFee] = useState(0);
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    const formData = new FormData(event.currentTarget);
     const formEntries = Object.fromEntries(formData);
     const result = calculateDeliveryFee({
       cartValue: Number(formEntries.cartValue),
