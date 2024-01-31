@@ -12,65 +12,39 @@ import {
   InputGroup,
   InputRightAddon,
   Flex,
+  Center,
+  AbsoluteCenter,
+  Box,
+  VStack,
 } from "@chakra-ui/react";
 
-
+import calculateDeliveryFee from "./services/DeliveryFeeService";
+import { useState } from "react";
 
 function App() {
-  const dD = 2235;
-  const cV = 200;
-  const nI = 4;
+  const [fee, setFee] = useState(0);
 
-  function CalculateFee(cV: number, dD: number, nI: number): number {
-    let fee = 0;
-
-    if (dD >= 0 && dD <= 1000) {
-      fee += 2;
-    } else if (dD > 1000) {
-      const additionalFee: number = Math.floor((dD - 1000) / 500);
-      console.log(additionalFee);
-      fee += 2 + additionalFee;
-    }
-    console.log(fee);
-
-    if (cV >= 200) {
-      fee = 0;
-    }
-
-    console.log(fee);
-
-    if (fee > 15) {
-      fee = 15;
-    }
-
-    if (nI >= 5) {
-      const itemSurcharge: number = (nI - 5) * 0.5
-      fee = fee + itemSurcharge
-    }
-
-    return fee;
-  }
-
-  const result = CalculateFee(dD, cV, nI);
-
-  console.log(result);
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const formEntries = Object.fromEntries(formData);
+    const result = calculateDeliveryFee({
+      cartValue: Number(formEntries.cartValue),
+      deliveryDistance: Number(formEntries.deliveryDistance),
+      itemCount: Number(formEntries.numberOfItems),
+      orderTime: new Date(Date.parse(String(formEntries.orderTime))),
+    });
+    setFee(result);
+  };
 
   return (
-    <>
-      <Container
-        width={400}
-        height={400}
-        border="1px"
-        borderColor="gray.200"
-        borderRadius={10}
-        p={4}
-        display="flex"
-        flexDirection={"column"}
-        justifyContent={"space-around"}
-      >
-        <Heading>Delivery Fee Calculator</Heading>
-        <form>
-          <Flex pb={2}>
+    <Container h={"100vh"}>
+      <AbsoluteCenter w={350}>
+        <Center>
+          <Heading pb={20}>Delivery Fee Calculator</Heading>
+        </Center>
+        <form onSubmit={handleSubmit}>
+          <VStack>
             <FormControl id="cartValue">
               <InputGroup>
                 <FormLabel htmlFor="cartValue"> Cart Value </FormLabel>
@@ -79,19 +53,17 @@ function App() {
                   allowMouseWheel
                   min={1}
                   w={24}
-                  defaultValue={20}
+                  defaultValue={10}
                   id="cartValue"
                   name="cartValue"
                   data-test-id="cartValue"
                   aria-label="Cart Value"
                 >
-                  <NumberInputField />
+                  <NumberInputField autoFocus />
                 </NumberInput>
                 <InputRightAddon w={12}>€</InputRightAddon>
               </InputGroup>
             </FormControl>
-          </Flex>
-          <Flex pb={2}>
             <FormControl id="deliveryDistance">
               <InputGroup>
                 <FormLabel htmlFor="deliveryDistance">
@@ -102,7 +74,7 @@ function App() {
                   allowMouseWheel
                   w={24}
                   min={1}
-                  defaultValue={2235}
+                  defaultValue={100}
                   id="deliveryDistance"
                   name="deliveryDistance"
                   data-test-id="deliveryDistance"
@@ -113,8 +85,7 @@ function App() {
                 <InputRightAddon>m</InputRightAddon>
               </InputGroup>
             </FormControl>
-          </Flex>
-          <Flex pb={2}>
+
             <FormControl id="numberOfItems">
               <InputGroup>
                 <FormLabel htmlFor="numberOfItems"> Number of Items </FormLabel>
@@ -123,7 +94,7 @@ function App() {
                   allowMouseWheel
                   w={36}
                   min={1}
-                  defaultValue={4}
+                  defaultValue={3}
                   id="numberOfItems"
                   name="numberOfItems"
                   data-test-id="numberOfItems"
@@ -133,8 +104,7 @@ function App() {
                 </NumberInput>
               </InputGroup>
             </FormControl>
-          </Flex>
-          <Flex pb={4}>
+
             <FormControl id="orderTime">
               <InputGroup>
                 <FormLabel htmlFor="orderTime">Order Time </FormLabel>
@@ -146,19 +116,27 @@ function App() {
                   name="orderTime"
                   data-test-id="orderTime"
                   aria-label="Order Time"
+                  defaultValue={new Date().toISOString().slice(0, 16)}
                 ></Input>
               </InputGroup>
             </FormControl>
-          </Flex>
+          </VStack>
 
-          <Button aria-label="Calculate Delivery Price" type="submit">
-            Calculate Delivery Price
-          </Button>
+          <Center pt={2}>
+            <Button
+              aria-label="Calculate Delivery Price"
+              type="submit"
+              justifySelf={"center"}
+            >
+              Calculate Delivery Price
+            </Button>
+          </Center>
         </form>
-
-        <Text>Delivery Price: {result}</Text>
-      </Container>
-    </>
+        <Text pt={2} data-test-id="fee" visibility={fee ? "visible" : "hidden"}>
+          Delivery Price: {fee.toFixed(2)} €
+        </Text>
+      </AbsoluteCenter>
+    </Container>
   );
 }
 
