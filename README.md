@@ -14,6 +14,8 @@ npm i
 npm run test
 ```
 
+Exit with 'q', because the test runner starts in watcher mode.
+
 ## local dev browser
 
 ```shell
